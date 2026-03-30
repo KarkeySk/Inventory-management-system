@@ -1,28 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+const items = require("../data/store");
 
-const DATA_FILE = path.join(__dirname, '../data/inventory.json');
+function updateItem(id, name, quantity, price) {
+    id = Number(id);
 
-function updateItem(itemId, updates) {
-  try {
-    if (!itemId || !updates) {
-      throw new Error('Item ID and updates are required');
+    let found = false;
+
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].id === id) {
+            items[i].name = name;
+            items[i].quantity = Number(quantity);
+            items[i].price = Number(price);
+
+            console.log("Item updated successfully!");
+            found = true;
+            break;
+        }
     }
 
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    const item = data.items.find(item => item.id === itemId);
-    
-    if (!item) {
-      throw new Error(`Item with ID ${itemId} not found`);
+    if (!found) {
+        console.log("Item not found.");
     }
-
-    Object.assign(item, updates);
-    
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-    return { success: true, message: `Item ${itemId} updated successfully`, item };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
 }
 
 module.exports = { updateItem };
