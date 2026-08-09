@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Fix for relative paths within public directory
+RewriteRule ^public/assets/(.*)$ assets/$1 [L]
+
+# Stop processing for assets or public directory
+RewriteRule ^(assets|public)/ - [L]
+
+# Route everything else to public
+RewriteRule ^(.*)$ public/$1 [L]

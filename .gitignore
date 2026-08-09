@@ -1,0 +1,17 @@
+/.env
+/config/db.php
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Runtime files
+*.log
+/logs/
+/tmp/
+
+# Local editor and OS files
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
